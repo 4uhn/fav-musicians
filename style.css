@@ -1,3 +1,7 @@
+:root {
+	--nav-height: 56px;
+}
+
 * {
 	margin: 0;
 	padding: 0;
@@ -7,8 +11,9 @@
 body,
 html {
 	width: 100vw;
-	height: 100vh;
+	height: auto;
 	display: flex;
+	padding: 0;
 	flex-direction: column;
 	align-items: center;
 	overflow: hidden;
@@ -18,18 +23,14 @@ html {
 	overflow: hidden;
 	height: 80vh;
 	width: 100%;
-	/*background-image: url("img/mumford-bg.jpg"); */
-	object-fit: cover;
-	background-repeat: no-repeat;
-	background-size: cover;
-	background-position: center;
-	transition: height 0.5s ease; 
+
+	transition: height 0.5s ease;
 }
 
-.main-section:has(.arrow-change){
-	height: 100vh;
+.main-section:has(.arrow-change) {
+	height: calc(100vh - var(--nav-height));
 }
-
+/* 
 .overlay {
 	display: none;
 	position: absolute;
@@ -41,7 +42,7 @@ html {
 	height: 100vh;
 	background: rgb(0, 0, 0);
 	background: linear-gradient(80deg, rgba(0, 0, 0, 0.7401085434173669) 0%, rgba(0, 0, 0, 0.2359068627450981) 100%);
-}
+} */
 
 #arrow {
 	transition: all 0.3s ease;
@@ -63,6 +64,11 @@ html {
 	border-radius: 100px;
 	transform: translate(-50%, -50%);
 	transition: 0.5s ease;
+}
+
+.navbar.navbar-expand-lg {
+	padding: 0;
+	height: var(--nav-height) !important;
 }
 
 .show-button:hover {
@@ -105,38 +111,39 @@ html {
 	transform: rotateZ(-180deg);
 }
 
-.content.container-fluid{
+.content.container-fluid {
+	padding: 0;
 	display: grid;
-	background-color: beige;
-	height: 80vh;
+	background-color: white;
+	height: calc(80vh - var(--nav-height));
 	grid-template-rows: 2fr 5fr 2fr;
 	grid-template-columns: 2.5fr 5fr 3fr;
 }
 
-.content-change{
-	height: 100vh !important;
-}	
-
-.item-1{
-	grid-area : 2/ 1/ 2/-3;
+.content-change {
+	height: calc(100lvh - var(--nav-height)) !important;
 }
 
-.item-2{
-	grid-area : 1/2/1/-2;
+.item-1 {
+	grid-area: 2/ 1/ 2/-3;
 }
 
-.item-3{
-	grid-area : 2/2/2/-2;
+.item-2 {
+	grid-area: 1/2/1/-2;
 }
 
-.item-4{
+.item-3 {
+	grid-area: 2/2/2/-2;
+}
+
+.item-4 {
 	grid-area: 3/2/3/-2;
 }
 
-.item-5{
-	grid-area : 1/3/1/4;
+.item-5 {
+	grid-area: 1/3/1/4;
 }
 
-.item-6{
+.item-6 {
 	grid-area: 2/3/2/4;
 }
