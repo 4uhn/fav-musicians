@@ -51,6 +51,9 @@ formbutton.addEventListener("click", () => {
 homebutton.addEventListener("click", () => {
     const formcontainer = document.getElementById("form-container");
     const formcontainer2 = document.getElementById("form-container2");
+    if (!formcontainer.classList.contains("block")) {
+        return;
+    };
     formcontainer.classList.toggle("block");
     formcontainer2.classList.toggle("block");
     item1.classList.toggle("hidden");

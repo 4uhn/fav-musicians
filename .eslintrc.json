@@ -15,7 +15,8 @@
         "no-trailing-spaces": "off",
         "padded-blocks": "off",
         "eqeqeq": "off",
-        "prefer-const": "off"
+        "prefer-const": "off",
+        "no-tabs": "off"
     }
 }
 

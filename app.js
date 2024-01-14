@@ -48,7 +48,7 @@ app.post("/add-artist", function (req, resp) {
         ArtistName: req.body.ArtistName.trim(),
         Quote: req.body.Quote.trim(),
         CoverImage: req.body.CoverImage.trim(),
-        SpotifyURL: req.body.SpotifyURL,
+        SpotifyUrl: req.body.SpotifyUrl,
         Card3A: req.body.Card3A.split(",").map(s => s.trim()),
         Card4: req.body.Card4.split(",").map(s => s.trim()),
         Card1: req.body.Card1.trim(),
