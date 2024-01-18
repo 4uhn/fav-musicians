@@ -1,4 +1,5 @@
-const newartistform = document.getElementById("artistForm");
+const newartistform = document.getElementById('artistForm');
+const button = document.getElementById('toggleUPDOWN');
 
 newartistform.addEventListener('submit', async (event) => {
     event.preventDefault();
@@ -20,7 +21,7 @@ newartistform.addEventListener('submit', async (event) => {
         });
 
         if (!response.ok) {
-            throw new Error("Reponse Status is" + response.status);
+            throw new Error('Reponse Status is' + response.status);
         }
         const artist = await response.json();
         const newartistDiv = document.createElement('div');
@@ -41,8 +42,10 @@ newartistform.addEventListener('submit', async (event) => {
         newartistDiv.appendChild(newartistButton);
         newartistDiv.appendChild(newartistheading);
 
-        const artistSec = document.getElementById('artistsSec')
+        const artistSec = document.getElementById('artistsSec');
         artistSec.appendChild(newartistDiv);
+
+        button.click();
 
         newartistButton.addEventListener('click', async function (event) {
             event.preventDefault();
@@ -51,10 +54,10 @@ newartistform.addEventListener('submit', async (event) => {
                 let response = await fetch(`http://127.0.0.1:8080/artist?temp=${artistName}`);
                 let body = await response.json(); 
                 console.log(body);
-                const {ArtistName, Quote,CoverImage, SpotifyUrl, Card3A, Card4, Card1, Card2, Comments} = body
+                const { ArtistName, Quote, CoverImage, SpotifyUrl, Card3A, Card4, Card1, Card2 } = body;
                 document.getElementById('Card1-front').querySelector('h1').innerHTML = `Who is ${ArtistName}?`;
-                document.getElementById('Card1-back').innerHTML = '<p>' + Card1 + '</p>';
-                document.getElementById('Card2-back').innerHTML = '<p>' + Card2 + '</p>';
+                document.getElementById('Card1-back').innerHTML = '<p class="scrollbar">' + Card1 + '</p>';
+                document.getElementById('Card2-back').innerHTML = '<p class="scrollbar"' + Card2 + '</p>';
                 document.getElementById('Card1-back').style.padding = '10px';
                 document.getElementById('Card2-back').style.padding = '10px';
                 document.getElementById('Card3-back').querySelector('ul').innerHTML = makeList(Card3A);
@@ -63,31 +66,39 @@ newartistform.addEventListener('submit', async (event) => {
                 document.getElementById('artistImage').src = CoverImage;
                 document.getElementById('Quote').innerHTML = Quote;
                 document.getElementById('SpotifyPlaylist').src = SpotifyUrl;
-                document.getElementById("commentbox").innerHTML = makeComment(Comments);
-                document.getElementById("commentbox").style.padding = '10px';
+                makeComment(ArtistName);
                 
             } catch (error) {
                 alert(error);
             }
         });
-
     } catch (error) {
         alert(error);
     }
 });
 
-function makeList(givenlist) {
-    let listcontent = "";
+function makeList (givenlist) {
+    let listcontent = '';
     for (let album of givenlist) {
         listcontent += `<li>${album}</li>`;
     }
     return listcontent;
 }
 
-function makeComment(CommentList) {
-    let commentcontent = "";
-    for (let comment of CommentList) {
-        commentcontent += `<p>${comment}</p>`;
+async function makeComment (artistName) {
+    try {
+        const response = await fetch(`http://127.0.0.1:8080/comments?artist=${artistName}`);
+        const comments = await response.json();
+
+        let commentcontent = '';
+        
+        comments.forEach(comment => {
+            commentcontent += `<p>${comment}</p>`;
+        });
+        document.getElementById('commentbox').innerHTML = commentcontent;
+        document.getElementById('commentbox').style.padding = '10px';
+
+    } catch (error) {
+        alert(error);
     }
-    return commentcontent;
-}
+};

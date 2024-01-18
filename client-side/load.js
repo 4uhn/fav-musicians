@@ -1,13 +1,11 @@
 window.addEventListener('load', async () => {
     try {
-        const response = await fetch('http://127.0.0.1:8080/artist-info.json'); 
+        const response = await fetch('http://127.0.0.1:8080/artists'); 
         if (!response.ok) {
-            throw new Error("Response Status is" + response.status);
+            throw new Error('Response Status is' + response.status);
         }
         const artists = await response.json();
-        torylanezcom = artists[0].Comments
-        document.getElementById("commentbox").innerHTML = makeComment(torylanezcom);
-        document.getElementById("commentbox").style.padding = '10px'
+        makeComment('Tory Lanez');
 
         for (let artist of artists) {
             const newartistDiv = document.createElement('div');
@@ -28,7 +26,7 @@ window.addEventListener('load', async () => {
             newartistDiv.appendChild(newartistButton);
             newartistDiv.appendChild(newartistheading);
 
-            const artistSec = document.getElementById('artistsSec')
+            const artistSec = document.getElementById('artistsSec');
             artistSec.appendChild(newartistDiv);
 
             newartistButton.addEventListener('click', async function (event) {
@@ -38,10 +36,10 @@ window.addEventListener('load', async () => {
                     let response = await fetch(`http://127.0.0.1:8080/artist?temp=${artistName}`);
                     let body = await response.json(); 
                     console.log(body);
-                    const {ArtistName, Quote, CoverImage, SpotifyUrl, Card3A, Card4, Card1, Card2, Comments} = body
+                    const { ArtistName, Quote, CoverImage, SpotifyUrl, Card3A, Card4, Card1, Card2 } = body;
                     document.getElementById('Card1-front').querySelector('h1').innerHTML = `Who is ${ArtistName}?`;
-                    document.getElementById('Card1-back').innerHTML = '<p>' + Card1 + '</p>';
-                    document.getElementById('Card2-back').innerHTML = '<p>' + Card2 + '</p>';
+                    document.getElementById('Card1-back').innerHTML = '<p class="scrollbar">' + Card1 + '</p>';
+                    document.getElementById('Card2-back').innerHTML = '<p class="scrollbar">' + Card2 + '</p>';
                     document.getElementById('Card1-back').style.padding = '10px';
                     document.getElementById('Card2-back').style.padding = '10px';
                     document.getElementById('Card3-back').querySelector('ul').innerHTML = makeList(Card3A);
@@ -50,23 +48,20 @@ window.addEventListener('load', async () => {
                     document.getElementById('artistImage').src = CoverImage;
                     document.getElementById('Quote').innerHTML = Quote;
                     document.getElementById('SpotifyPlaylist').src = SpotifyUrl;
-                    document.getElementById("commentbox").innerHTML = makeComment(Comments);
-                    document.getElementById("commentbox").style.padding = '10px'
+                    makeComment(ArtistName);
                     
                 } catch (error) {
                     alert(error);
                 }
-            })
+            });
         }
-
-
 
     } catch (error) {
         alert(error);
     }
 });
 
-function makeList(givenlist){
+function makeList (givenlist) {
     let listcontent = '';
     for (let album of givenlist) {
         listcontent += `<li>${album}</li>`;
@@ -74,25 +69,17 @@ function makeList(givenlist){
     return listcontent;
 }
 
-function makeComment(CommentList){
-    let commentcontent = '';
-    for (let comment of CommentList){
-        commentcontent += `<p>${comment}</p>`;
-    }
-    return commentcontent;
-}
-
-document.querySelector('.navbar-brand').addEventListener('click', async function(event) {
+document.querySelector('.navbar-brand').addEventListener('click', async function (event) {
     event.preventDefault();
     try {
-        let homename = "Tory Lanez"
+        let homename = 'Tory Lanez';
         let response = await fetch(`http://127.0.0.1:8080/artist?temp=${homename}`);
         let body = await response.json(); 
         console.log(body);
-        const {ArtistName, Quote, CoverImage, SpotifyUrl, Card3A, Card4, Card1, Card2, Comments} = body
+        const { ArtistName, Quote, CoverImage, SpotifyUrl, Card3A, Card4, Card1, Card2 } = body;
         document.getElementById('Card1-front').querySelector('h1').innerHTML = `Who is ${ArtistName}?`;
-        document.getElementById('Card1-back').innerHTML = '<p>' + Card1 + '</p>';
-        document.getElementById('Card2-back').innerHTML = '<p>' + Card2 + '</p>';
+        document.getElementById('Card1-back').innerHTML = '<p class="scrollbar">' + Card1 + '</p>';
+        document.getElementById('Card2-back').innerHTML = '<p class="scrollbar">' + Card2 + '</p>';
         document.getElementById('Card1-back').style.padding = '10px';
         document.getElementById('Card2-back').style.padding = '10px';
         document.getElementById('Card3-back').querySelector('ul').innerHTML = makeList(Card3A);
@@ -101,10 +88,41 @@ document.querySelector('.navbar-brand').addEventListener('click', async function
         document.getElementById('artistImage').src = CoverImage;
         document.getElementById('Quote').innerHTML = Quote;
         document.getElementById('SpotifyPlaylist').src = SpotifyUrl;
-        document.getElementById("commentbox").innerHTML = makeComment(Comments);
-        document.getElementById("commentbox").style.padding = '10px'
+        makeComment(ArtistName);
         
     } catch (error) {
         alert(error);
     }
 });
+
+async function makeComment (artistName) {
+    try {
+        const response = await fetch(`http://127.0.0.1:8080/comments?artist=${artistName}`);
+        const comments = await response.json();
+
+        let commentcontent = '';
+        
+        comments.forEach(comment => {
+            commentcontent += `<p>${comment}</p>`;
+        });
+        document.getElementById('commentbox').innerHTML = commentcontent;
+        document.getElementById('commentbox').style.padding = '10px';
+
+    } catch (error) {
+        alert(error);
+    }
+};
+
+async function checkServerStatus () {
+    try {
+        const response = await fetch('http://127.0.0.1:8080/');
+
+        if (!response.ok) {
+            alert('The server is disconnected. Please refresh the page or restart the server.');
+        }
+    } catch (error) {
+        alert('The server is disconnected. Please refresh the page or restart the server');
+    }
+}
+
+setInterval(checkServerStatus, 1000);

@@ -1,16 +1,14 @@
-const artistsSection = document.getElementById("artistsSec");
-const toggleButton = document.getElementById("toggleUPDOWN");
-const content = document.getElementById("content");
+const artistsSection = document.getElementById('artistsSec');
+const toggleButton = document.getElementById('toggleUPDOWN');
+const content = document.getElementById('content');
 
-
-
-toggleButton.addEventListener("click", () => {
-	artistsSection.classList.toggle("artist-hidden");
-	toggleButton.classList.toggle("arrow-change");
+toggleButton.addEventListener('click', () => {
+	artistsSection.classList.toggle('artist-hidden');
+	toggleButton.classList.toggle('arrow-change');
 	adjustMainSectionHeight();
 });
 
-function adjustMainSectionHeight() {
+function adjustMainSectionHeight () {
 	const navbarHeight = document.querySelector('nav').offsetHeight;
 	const artistHeight = artistsSection.offsetHeight;
 	const windowHeight = window.innerHeight;
@@ -26,5 +24,3 @@ function adjustMainSectionHeight() {
   
 window.addEventListener('load', adjustMainSectionHeight);
 window.addEventListener('resize', adjustMainSectionHeight);
-
-

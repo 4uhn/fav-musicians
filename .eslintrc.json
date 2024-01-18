@@ -11,7 +11,7 @@
     "rules": {
         "semi": [2, "always"],
         "indent": "off",
-        "quotes": ["error", "double"],
+        "quotes": ["error", "single"], 
         "no-trailing-spaces": "off",
         "padded-blocks": "off",
         "eqeqeq": "off",
