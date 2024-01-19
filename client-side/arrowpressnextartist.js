@@ -4,6 +4,8 @@ let artists = [];
 const RightArrow = document.getElementById('right-footer-arrow');
 const LeftArrow = document.getElementById('left-footer-arrow');
 
+// JS for when arrows are pressed on low width displays to move to next artists 
+
 RightArrow.addEventListener('click', async function (event) {
     try {
         const response = await fetch('http://127.0.0.1:8080/artists'); 

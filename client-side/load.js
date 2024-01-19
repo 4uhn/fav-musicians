@@ -69,6 +69,7 @@ function makeList (givenlist) {
     return listcontent;
 }
 
+// Home Button Event Listener
 document.querySelector('.navbar-brand').addEventListener('click', async function (event) {
     event.preventDefault();
     try {
@@ -95,6 +96,7 @@ document.querySelector('.navbar-brand').addEventListener('click', async function
     }
 });
 
+// Comment Getter Function
 async function makeComment (artistName) {
     try {
         const response = await fetch(`http://127.0.0.1:8080/comments?artist=${artistName}`);
@@ -107,12 +109,14 @@ async function makeComment (artistName) {
         });
         document.getElementById('commentbox').innerHTML = commentcontent;
         document.getElementById('commentbox').style.padding = '10px';
+        document.getElementById('commentbox').style.overflow = 'auto';
 
     } catch (error) {
         alert(error);
     }
 };
 
+// Checks whether or not the server is running and alerts when it is down 
 async function checkServerStatus () {
     try {
         const response = await fetch('http://127.0.0.1:8080/');
@@ -124,5 +128,5 @@ async function checkServerStatus () {
         alert('The server is disconnected. Please refresh the page or restart the server');
     }
 }
-
+// Checks the server status every second
 setInterval(checkServerStatus, 1000);

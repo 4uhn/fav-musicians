@@ -1,5 +1,6 @@
 const form2 = document.getElementById('commentsform');
 
+// Comment Submit Event Listener
 form2.addEventListener('submit', async function (event) {
     event.preventDefault();
     const ArtistName = document.getElementById('ArtistNameHeader').innerHTML;

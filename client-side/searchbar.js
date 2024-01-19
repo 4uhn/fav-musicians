@@ -26,6 +26,7 @@ async function makeComment (artistName) {
 
 const form = document.getElementById('searchform');
 
+// Search Bar Event Listener
 form.addEventListener('submit', async function (event) {
     event.preventDefault();
     try {

@@ -1,6 +1,7 @@
 const newartistform = document.getElementById('artistForm');
 const button = document.getElementById('toggleUPDOWN');
 
+// Add new artist event listener
 newartistform.addEventListener('submit', async (event) => {
     event.preventDefault();
 

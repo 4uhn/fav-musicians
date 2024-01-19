@@ -8,6 +8,7 @@ const artistsSec = document.getElementById('artistsSec');
 const toggleUPDOWNButton = document.getElementById('toggleUPDOWN');
 const arrowfooter = document.getElementById('arrowfooter');
 
+// Hiding everything except for the add new Artist Form when the add new Artist button is clicked
 buttonclicked.addEventListener('click', () => {
     if (!artistsSec.classList.contains('artist-hidden')) {
         toggleUPDOWNButton.click();
@@ -31,6 +32,7 @@ buttonclicked.addEventListener('click', () => {
 const formbutton = document.getElementById('form-button');
 const homebutton = document.getElementById('Home-Button');
 
+// Form has been submitted and it brings us back to our home page 
 formbutton.addEventListener('click', () => {
     const formcontainer = document.getElementById('form-container');
     const formcontainer2 = document.getElementById('form-container2');
@@ -48,6 +50,7 @@ formbutton.addEventListener('click', () => {
     }
 });
 
+// Home button has been clicked and it brings us back to our home page (Exit Button for the Form)
 homebutton.addEventListener('click', () => {
     const formcontainer = document.getElementById('form-container');
     const formcontainer2 = document.getElementById('form-container2');

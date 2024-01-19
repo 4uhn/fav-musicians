@@ -287,9 +287,11 @@ html {
 }
 
 .rightside-2{
+	height: 404px;
 	padding-top: 10px;
 	width:100%;
 	text-align: right;
+	overflow: none;
 }
 
 .box-content{
@@ -301,7 +303,7 @@ html {
 	text-align: left;
 	padding: 0;
 	margin-top: 2px;
-	overflow: auto;
+	overflow-y: scroll;
 }
 
 
