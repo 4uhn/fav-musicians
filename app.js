@@ -69,20 +69,27 @@ app.post('/add-comments', function (req, resp) {
 app.post('/add-artist', function (req, resp) {
 	const file = fs.readFileSync('./data.json', 'utf8');
 	data = JSON.parse(file);
-	const newArtist = {
-		ArtistName: req.body.ArtistName.trim(),
-		Quote: req.body.Quote.trim(),
-		CoverImage: req.body.CoverImage.trim(),
-		SpotifyUrl: req.body.SpotifyUrl,
-		Card3A: req.body.Card3A.split(',').map((s) => s.trim()),
-		Card4: req.body.Card4.split(',').map((s) => s.trim()),
-		Card1: req.body.Card1.trim(),
-		Card2: req.body.Card2.trim()
+	const artistName = req.body.ArtistName.trim();
+    const existingArtist = data.artists.find(artist => artist.ArtistName.toLowerCase() === artistName.toLowerCase());
+
+    if (existingArtist) {
+        return resp.status(400).json({ error: 'Artist already in file' });
+    }
+
+    const newArtist = {
+        ArtistName: artistName,
+        Quote: req.body.Quote.trim(),
+        CoverImage: req.body.CoverImage.trim(),
+        SpotifyUrl: req.body.SpotifyUrl,
+        Card3A: req.body.Card3A.split(',').map((s) => s.trim()),
+        Card4: req.body.Card4.split(',').map((s) => s.trim()),
+        Card1: req.body.Card1.trim(),
+        Card2: req.body.Card2.trim()
 	};
 
-	data.artists.push(newArtist);
-	fs.writeFileSync('./data.json', JSON.stringify(data, null, 2));
-	resp.send(newArtist);
+    data.artists.push(newArtist);
+    fs.writeFileSync('./data.json', JSON.stringify(data, null, 2));
+    resp.send(newArtist);
 });
 
 // unexpected random requests will always lead back to the home page 

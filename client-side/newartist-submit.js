@@ -21,7 +21,8 @@ newartistform.addEventListener('submit', async (event) => {
         });
 
         if (!response.ok) {
-            throw new Error('Reponse Status is' + response.status);
+            const errorD = await response.json();
+            throw new Error('Response Status: ' + response.status + ', Reason: ' + errorD.error);
         }
         const artist = await response.json();
         const newartistDiv = document.createElement('div');
