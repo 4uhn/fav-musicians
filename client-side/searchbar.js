@@ -30,8 +30,8 @@ const form = document.getElementById('searchform');
 form.addEventListener('submit', async function (event) {
     event.preventDefault();
     try {
-        let artist = document.getElementById('artisttofind').value;
-        let response = await fetch(`http://127.0.0.1:8080/artist?temp=${artist}`);
+        let artistName = document.getElementById('artisttofind').value;
+        let response = await fetch(`http://127.0.0.1:8080/artist?temp=${artistName}`);
         if (!response.ok) {
             throw new Error('Artist not found');
         }
