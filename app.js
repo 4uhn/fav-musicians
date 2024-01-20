@@ -68,9 +68,11 @@ app.post('/add-comments', function (req, resp) {
 // post method for new artist
 app.post('/add-artist', function (req, resp) {
 	const file = fs.readFileSync('./data.json', 'utf8');
-	data = JSON.parse(file);
-	const artistName = req.body.ArtistName.trim();
-    const existingArtist = data.artists.find(artist => artist.ArtistName.toLowerCase() === artistName.toLowerCase());
+    data = JSON.parse(file);
+
+	// Git-hub copilot helped with takening into account whitespaces as well 
+    const artistName = req.body.ArtistName.trim();
+    const existingArtist = data.artists.find(artist => artist.ArtistName.replace(/\s/g, '').toLowerCase() === artistName.replace(/\s/g, '').toLowerCase());
 
     if (existingArtist) {
         return resp.status(400).json({ error: 'Artist already in file' });
