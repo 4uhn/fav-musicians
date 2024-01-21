@@ -9,20 +9,21 @@ app.use(express.json());
 let data = require('./data.json');
 
 // get method for individual artist
+// Git-hub copilot helped with takening into account whitespaces as well (Regex)
 app.get('/artist', function (req, resp) {
-	const key = req.query.temp.toLowerCase();
-	let found = false;
-	for (let artist of data.artists) {
-		if (artist.ArtistName.toLowerCase() == key) {
-			resp.send(artist);
-			found = true;
-			break;
-		}
-	}
+    const key = req.query.temp.replace(/\s/g, '').toLowerCase();
+    let found = false;
+    for (let artist of data.artists) {
+        if (artist.ArtistName.replace(/\s/g, '').toLowerCase() == key) {
+            resp.send(artist);
+            found = true;
+            break;
+        }
+    }
 
-	if (!found) {
-		resp.status(404).json({ error: 'Artist not found' });
-	}
+    if (!found) {
+        resp.status(404).json({ error: 'Artist not found' });
+    }
 });
 
 // get method for all artists
@@ -70,7 +71,7 @@ app.post('/add-artist', function (req, resp) {
 	const file = fs.readFileSync('./data.json', 'utf8');
     data = JSON.parse(file);
 
-	// Git-hub copilot helped with takening into account whitespaces as well 
+	// Git-hub copilot helped with takening into account whitespaces as well (Regex)
     const artistName = req.body.ArtistName.trim();
     const existingArtist = data.artists.find(artist => artist.ArtistName.replace(/\s/g, '').toLowerCase() === artistName.replace(/\s/g, '').toLowerCase());
 
