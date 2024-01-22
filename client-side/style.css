@@ -427,6 +427,10 @@ html {
 	margin: 5px;
 }
 
+.arrow-button:hover {
+    cursor: pointer;
+}
+
 #Home-Button{
 	background: transparent;
 	border: none;
@@ -568,7 +572,7 @@ html {
 
 }
 
-@media (max-height:900px){
+@media (max-height:750px){
 	.navbar-nav {
 		display: flex;
 		flex-direction: row !important;

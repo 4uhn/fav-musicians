@@ -59,7 +59,7 @@ newartistform.addEventListener('submit', async (event) => {
                 const { ArtistName, Quote, CoverImage, SpotifyUrl, Card3A, Card4, Card1, Card2 } = body;
                 document.getElementById('Card1-front').querySelector('h1').innerHTML = `Who is ${ArtistName}?`;
                 document.getElementById('Card1-back').innerHTML = '<p class="scrollbar">' + Card1 + '</p>';
-                document.getElementById('Card2-back').innerHTML = '<p class="scrollbar"' + Card2 + '</p>';
+                document.getElementById('Card2-back').innerHTML = '<p class="scrollbar">' + Card2 + '</p>';
                 document.getElementById('Card1-back').style.padding = '10px';
                 document.getElementById('Card2-back').style.padding = '10px';
                 document.getElementById('Card3-back').querySelector('ul').innerHTML = makeList(Card3A);
