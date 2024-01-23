@@ -5,6 +5,13 @@ form2.addEventListener('submit', async function (event) {
     event.preventDefault();
     const ArtistName = document.getElementById('ArtistNameHeader').innerHTML;
     const Comment = document.getElementById('comment-input').value;
+    const Checker = document.getElementById('comment-input');
+
+    if (Checker.value.trim() === '') {
+        alert('Please enter a comment');
+        return;
+    };
+
     const formData = new FormData(form2);
     formData.append('ArtistName', ArtistName);
     formData.append('Comment', Comment);
