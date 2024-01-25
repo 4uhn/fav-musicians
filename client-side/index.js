@@ -32,15 +32,21 @@ async function makeComment (artistName) {
 };
 
 // Checks whether or not the server is running and alerts when it is down 
+const overlay = document.getElementById('overlay');
+
 async function checkServerStatus () {
     try {
         const response = await fetch('http://127.0.0.1:8080/');
 
         if (!response.ok) {
-            alert('The server is disconnected. Please refresh the page or restart the server.');
-        }
+            overlay.classList.add('flex');
+            overlay.classList.remove('hidden');
+        } else {
+            overlay.classList.remove('flex');
+            overlay.classList.add('hidden');
+        };
     } catch (error) {
-        alert('The server is disconnected. Please refresh the page or restart the server');
+        overlay.classList.add('flex');
     }
 }
 // Checks the server status every second
