@@ -50,7 +50,7 @@ async function checkServerStatus () {
     }
 }
 // Checks the server status every second
-setInterval(checkServerStatus, 1000);
+setInterval(checkServerStatus, 3000);
 
 async function UpdateUIWithArtistInfo (artistName) {
     try {
